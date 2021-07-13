@@ -1,0 +1,11 @@
+.weatherDetailsWrapper {
+  display: flex;
+  justify-content: space-around;
+}
+
+.weatherIconWrapper {
+  img {
+    width: 7.875rem;
+    margin: 2rem auto;
+  }
+}
