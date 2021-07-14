@@ -1,11 +1,27 @@
 .weatherDetailsWrapper {
   display: flex;
   justify-content: space-around;
+  padding: 2rem;
 }
 
 .weatherIconWrapper {
   img {
     width: 7.875rem;
+    display: block;
     margin: 2rem auto;
+  }
+}
+
+.weatherDataWrapper {
+  align-self: center;
+}
+
+@media (max-width: 600px) {
+  .weatherDetailsWrapper {
+    flex-direction: column;
+  }
+
+  .weatherDataWrapper {
+    align-self: baseline;
   }
 }

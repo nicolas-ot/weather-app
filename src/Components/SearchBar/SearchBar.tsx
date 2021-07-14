@@ -1,11 +1,16 @@
 import './searchBar.scss';
 
-const SearchBar = (props) => {
+interface searchBarProps {
+  onChange: (input: string) => void;
+}
+
+const SearchBar: React.FC<searchBarProps> = ({ onChange }) => {
   return (
     <div className='searchBarWrapper'>
       <div className='inputFieldWrapper'>
-        <label for='city'>Location</label>
+        <label htmlFor='city'>Location</label>
         <input
+          onChange={(event) => onChange(event.target.value)}
           type='text'
           id='city'
           placeholder='Enter a city'

@@ -1,21 +1,29 @@
 import './weatherDetails.scss';
 
-import picture from '../../assets/images/Night-rainy.svg';
+import Date from './Date/Date';
+import Description from './Description/Description';
+import Temperature from './Temperature/Temperature';
 
-const WeatherDetails = (props: any) => {
+interface weatherDetailsProps {
+  weatherDetails: { temp: number; desc: string };
+}
+
+const WeatherDetails: React.FC<weatherDetailsProps> = ({ weatherDetails }) => {
   return (
     <div className='weatherDetailsWrapper'>
       <div className='weatherIconWrapper'>
         <img
-          src={require('../../assets/images/Night-rainy.svg').default}
+          src={
+            require(`../../assets/images/${weatherDetails.desc}.svg`).default
+          }
           // src={import test from '../'}
           alt='weather icon'
         ></img>
       </div>
       <div className='weatherDataWrapper'>
-        <p>25</p>
-        <p>clear</p>
-        <p>sunday</p>
+        <Temperature temp={weatherDetails.temp}></Temperature>
+        <Description desc={weatherDetails.desc}></Description>
+        <Date></Date>
       </div>
     </div>
   );
