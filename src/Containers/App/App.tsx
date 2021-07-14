@@ -1,6 +1,7 @@
 import './app.scss';
+import assetMapping from '../../assets/assetMapping.json';
 
-import Header from '../../Components/Header';
+import Header from '../../Components/Header/Header';
 import SearchBar from '../../Components/SearchBar/SearchBar';
 import WeatherDetails from '../../Components/WeatherDetails/WeatherDetails';
 import Card from '../../Elements/Card/Card';
@@ -11,14 +12,21 @@ import Preview from '../../Components/Preview/Preview';
 function App() {
   interface weatherDetailsInterface {
     temp: number;
-    desc: string;
+    desc:
+      | 'Rain'
+      | 'Clear'
+      | 'Thunderstorm'
+      | 'Snow'
+      | 'Drizzle'
+      | 'Clouds'
+      | 'Haze';
   }
 
   const [weatherDetails, setWeatherDetails] =
     useState<weatherDetailsInterface>();
   const [input, setInput] = useState('');
+  const [error, setError] = useState('');
 
-  if (weatherDetails) console.log(123);
   const fetchWeather = (input: string) => {
     const API_KEY = '270c098c9fb6257986ba3644d1aa5177';
     const URL = `https://api.openweathermap.org/data/2.5/weather?q=${input}&appid=${API_KEY}&units=metric`;
@@ -54,11 +62,17 @@ function App() {
   let cardContent = <Preview></Preview>;
   if (weatherDetails)
     cardContent = (
-      <WeatherDetails weatherDetails={weatherDetails!}></WeatherDetails>
+      <WeatherDetails weatherDetails={weatherDetails}></WeatherDetails>
     );
+
+  let color: keyof typeof assetMapping.colors;
+  if (error) color = 'error';
+  else if (weatherDetails) color = weatherDetails.desc;
+  else color = 'default';
+
   return (
     <div className='appWrapper'>
-      <Header></Header>
+      <Header color={assetMapping.colors[color]}></Header>
       <main className='appMain'>
         <SearchBar onChange={inputChangeHanlder}></SearchBar>
         <Card>{cardContent}</Card>
