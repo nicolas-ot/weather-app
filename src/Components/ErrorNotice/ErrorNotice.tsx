@@ -1,6 +1,9 @@
 import './errorNotice.scss';
 
-const ErrorNotice = (props: any) => {
+interface errorNoticeProps {
+  onClick: () => void;
+}
+const ErrorNotice: React.FC<errorNoticeProps> = ({ onClick }) => {
   return (
     <div className='errorWrapper'>
       <h1 className='errorCode'>404</h1>
@@ -10,7 +13,7 @@ const ErrorNotice = (props: any) => {
           We can't find the city you are looking for.
         </p>
         <div className='buttonWrapper'>
-          <button>Try Again</button>
+          <button onClick={onClick}>Try Again</button>
         </div>
       </div>
     </div>

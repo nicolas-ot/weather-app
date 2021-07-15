@@ -1,4 +1,11 @@
 .header {
   width: 100%;
   display: inline-block;
+  height: 55px;
+  display: flex;
+
+  h1 {
+    margin: auto;
+    align-self: center;
+  }
 }

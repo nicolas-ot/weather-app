@@ -6,7 +6,6 @@ interface HeaderProps {
   color: string;
 }
 const Header: React.FC<HeaderProps> = ({ color }) => {
-  console.log(color);
   return (
     <header className='header' style={{ backgroundColor: color }}>
       <Logo colorScheme='light'></Logo>

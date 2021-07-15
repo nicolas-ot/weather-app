@@ -12,7 +12,7 @@ import ErrorNotice from '../../Components/ErrorNotice/ErrorNotice';
 
 function App() {
   interface weatherDetailsInterface {
-    temp: number;
+    temp: number | undefined;
     desc:
       | 'Rain'
       | 'Clear'
@@ -20,7 +20,8 @@ function App() {
       | 'Snow'
       | 'Drizzle'
       | 'Clouds'
-      | 'Haze';
+      | 'Haze'
+      | null;
   }
 
   const [weatherDetails, setWeatherDetails] =
@@ -31,7 +32,6 @@ function App() {
   const fetchWeather = (input: string) => {
     const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
     const URL = `https://api.openweathermap.org/data/2.5/weather?q=${input}&appid=${API_KEY}&units=metric`;
-    console.log(process.env.REACT_APP_WEATHER_API_KEY);
     fetch(URL)
       .then((res) => res.json())
       .then((data) => {
@@ -41,6 +41,7 @@ function App() {
             desc: data.weather[0].main,
           });
         } else {
+          setError('error');
           throw data.cod;
         }
       })
@@ -61,22 +62,49 @@ function App() {
   // console.log(process.env);
 
   let cardContent = <Preview></Preview>;
-  cardContent = <ErrorNotice></ErrorNotice>;
-  if (weatherDetails)
+
+  if (error && input) {
     cardContent = (
-      <WeatherDetails weatherDetails={weatherDetails}></WeatherDetails>
+      <ErrorNotice
+        onClick={() => {
+          setWeatherDetails({ temp: undefined, desc: null });
+          setError('');
+          setInput('');
+        }}
+      ></ErrorNotice>
     );
+    // cardContent will be WeatherDetails if the variables below have a true-ish value
+  } else if (
+    input &&
+    weatherDetails &&
+    weatherDetails.desc &&
+    weatherDetails.temp
+  ) {
+    const details = weatherDetails as {
+      temp: number;
+      desc:
+        | 'Rain'
+        | 'Clear'
+        | 'Thunderstorm'
+        | 'Snow'
+        | 'Drizzle'
+        | 'Clouds'
+        | 'Haze';
+    };
+
+    cardContent = <WeatherDetails weatherDetails={details}></WeatherDetails>;
+  }
 
   let color: keyof typeof assetMapping.colors;
-  if (error) color = 'error';
-  else if (weatherDetails) color = weatherDetails.desc;
+  if (error && input) color = 'error';
+  else if (weatherDetails && weatherDetails.desc) color = weatherDetails.desc;
   else color = 'default';
 
   return (
     <div className='appWrapper'>
       <Header color={assetMapping.colors[color]}></Header>
       <main className='appMain'>
-        <SearchBar onChange={inputChangeHanlder}></SearchBar>
+        <SearchBar value={input} onChange={inputChangeHanlder}></SearchBar>
         <Card>{cardContent}</Card>
       </main>
       <Footer></Footer>
