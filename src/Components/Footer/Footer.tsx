@@ -1,10 +1,14 @@
 import './footer.scss';
 import Logo from '../../Elements/Logo/Logo';
 
-const Footer = (props: any) => {
+interface FooterProps {
+  onClick: () => void;
+}
+
+const Footer: React.FC<FooterProps> = ({ onClick }) => {
   return (
     <footer className='footer'>
-      <Logo colorScheme='dark'></Logo>
+      <Logo onClick={onClick} colorScheme='dark'></Logo>
       <div className='footerSeparator'></div>
     </footer>
   );

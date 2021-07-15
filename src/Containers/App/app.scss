@@ -1,3 +1,9 @@
 .appMain {
   height: 460px;
 }
+
+@media (max-width: 600px) {
+  .appMain {
+    height: 560px;
+  }
+}

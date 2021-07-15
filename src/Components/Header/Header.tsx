@@ -4,11 +4,12 @@ import React from 'react';
 
 interface HeaderProps {
   color: string;
+  onClick: () => void;
 }
-const Header: React.FC<HeaderProps> = ({ color }) => {
+const Header: React.FC<HeaderProps> = ({ onClick, color }) => {
   return (
     <header className='header' style={{ backgroundColor: color }}>
-      <Logo colorScheme='light'></Logo>
+      <Logo onClick={onClick} colorScheme='light'></Logo>
     </header>
   );
 };

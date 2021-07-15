@@ -75,6 +75,12 @@ function App() {
 
   // console.log(process.env);
 
+  const restart = () => {
+    setWeatherDetails({ temp: undefined, desc: undefined });
+    setError('');
+    setInput('');
+  };
+
   let cardContent = <Preview></Preview>;
   if (loading) cardContent = <MoonLoader></MoonLoader>;
   else {
@@ -82,9 +88,7 @@ function App() {
       cardContent = (
         <ErrorNotice
           onClick={() => {
-            setWeatherDetails({ temp: undefined, desc: undefined });
-            setError('');
-            setInput('');
+            restart();
           }}
         ></ErrorNotice>
       );
@@ -120,12 +124,15 @@ function App() {
 
   return (
     <div className='appWrapper'>
-      <Header color={assetMapping.colors[color]}></Header>
+      <Header
+        onClick={() => restart()}
+        color={assetMapping.colors[color]}
+      ></Header>
       <main className='appMain'>
         <SearchBar value={input} onChange={inputChangeHanlder}></SearchBar>
         <Card>{cardContent}</Card>
       </main>
-      <Footer></Footer>
+      <Footer onClick={() => restart()}></Footer>
     </div>
   );
 }
