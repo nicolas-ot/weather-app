@@ -1,0 +1,36 @@
+.errorWrapper {
+  display: flex;
+  justify-content: space-around;
+  padding: 2rem;
+  width: 100%;
+}
+
+.errorCode {
+  margin: 0;
+  opacity: 0.08;
+  font-size: 6.25rem;
+  line-height: 140%;
+}
+
+.errorDetails {
+  h2 {
+    font-size: 2.5rem;
+    margin: 0;
+  }
+
+  p {
+    font-size: 1.25rem;
+  }
+  max-width: 180px;
+}
+
+.buttonWrapper {
+  button {
+    cursor: pointer;
+    padding: 0;
+    opacity: 0.6;
+    text-transform: uppercase;
+    border: 0;
+    background-color: transparent;
+  }
+}

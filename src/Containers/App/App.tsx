@@ -8,6 +8,7 @@ import Card from '../../Elements/Card/Card';
 import Footer from '../../Components/Footer/Footer';
 import { useEffect, useState } from 'react';
 import Preview from '../../Components/Preview/Preview';
+import ErrorNotice from '../../Components/ErrorNotice/ErrorNotice';
 
 function App() {
   interface weatherDetailsInterface {
@@ -28,9 +29,9 @@ function App() {
   const [error, setError] = useState('');
 
   const fetchWeather = (input: string) => {
-    const API_KEY = '270c098c9fb6257986ba3644d1aa5177';
+    const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
     const URL = `https://api.openweathermap.org/data/2.5/weather?q=${input}&appid=${API_KEY}&units=metric`;
-    console.log(input);
+    console.log(process.env.REACT_APP_WEATHER_API_KEY);
     fetch(URL)
       .then((res) => res.json())
       .then((data) => {
@@ -60,6 +61,7 @@ function App() {
   // console.log(process.env);
 
   let cardContent = <Preview></Preview>;
+  cardContent = <ErrorNotice></ErrorNotice>;
   if (weatherDetails)
     cardContent = (
       <WeatherDetails weatherDetails={weatherDetails}></WeatherDetails>
